@@ -1,0 +1,219 @@
+/*  Kaltura v7 player styling
+==========================================================================    */
+/*
+* 1. Video player
+* 2. Audio player
+*/
+
+/* 1. Video player
+========================================================================== */
+
+/* Makes bottom bar visible on load instead of after selecting central play button.
+   This means students can see how long the video is before they begin playing it.
+   All controls become responsive including the preview pane when you drag the scrubber so you can start the video from any point you like as well. */
+.playkit-player.playkit-pre-playback .playkit-player-gui .playkit-gui-area .playkit-bottom-bar {
+  opacity: 1;
+  display: block;
+  visibility: visible;
+  max-height: 60px;
+  transition: 100ms max-height ease-in-out, 100ms visibility ease-in-out;
+  padding: 0 1rem 0.25rem;
+}
+
+/* Hides the central play button from the player when it loads.
+   This means visual designers don't have to design thumbnails around the play button. */
+button.playkit-pre-playback-play-button {
+  display: none;
+}
+
+/* Makes the central play button visible when the video has ended.
+   This makes it easier to replay the video, if needed, but also helps confirm to students that the video has ended. */
+button.playkit-pre-playback-play-button[aria-label="Start over"] {
+  display: block;
+}
+
+/* The following code is to ensure the play/pause button doesn't get hidden when the small or extra small class are active.
+   This ensures that the play/pause button remains visible for mobile devices. */
+.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls ,
+.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls ,
+.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls {
+  display: inline;
+}
+.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container,
+.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container,
+.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container {
+  display: inline;
+}
+.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip ,
+.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip ,
+.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip {
+  width: auto;
+}
+.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display,
+.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display,
+.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Hides pop-up message on smaller device widths that prompts users to go to the Kaltura MediaSpace Go app. */
+.smartbanner {
+  display: none;
+}
+
+/* 2. Audio player
+  ========================================================================== */
+
+/* Makes sure all of player is visible and removes vertical scroll. */
+html.audio body.player-v7 #mediaContainer #wrapper.video:has([class^="playkit-ap-mini-audio-player-view"]) {
+  overflow: visible;
+  /* Unfortunately I need to use !important here to override another file that uses !important to give top and bottom padding. */
+  padding: 0 !important;
+}
+
+/* Fixes the height padding and gap values for players with the large or medium class. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] {
+  height: 168px;
+  justify-content: normal;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Removes background from players using the large class. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-background-image"] {
+  /* Unfortunately I need to use !important here to override inline styling that adds a background image to players with the large class. */
+  background-image: none !important;
+  background-color: #242424;
+  opacity: 0;
+  filter: none;
+  -webkit-filter: none;
+}
+
+/* Sets the height and width for the container that holds the audio player image. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-left-controls"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-left-controls"] {
+  height: 128px;
+  width: 128px;
+}
+
+/* Makes right-side elements - most notably, the scrubber - fill remainging space in players with the large class. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] {
+  width: -webkit-fill-available;
+  width: -moz-available;  /* For FireFox */
+}
+
+/* Makes sure right-side elements fill remaining space but also that long titles don't exceed container width for players with the medium class. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] {
+  width: calc(100% - 152px);
+}
+
+/* Makes 'audio-icon-container' display to the right of the audio title instead of above it. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-medium"] [class^="playkit-ap-header"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-small"] [class^="playkit-ap-header"] {
+  flex-direction: row-reverse;
+}
+
+/* Creates enough space for the 'audio icons' to display in the 'audio-icon-container'.
+   (The 'audio icons' are three dots that animate to vertical bars of varying height to similate the effect of audio playing.) */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-audio-icon-container"] {
+  margin: 1rem 1.5rem 0 0;
+}
+
+/* Redistributes margin space to ensure space between audio title and audio description. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-title"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-description"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-medium"] [class^="playkit-ap-header"] [class^="playkit-ap-title"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-medium"] [class^="playkit-ap-header"] [class^="playkit-ap-description"] {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Ensures height of audio title only makes matches font-size. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-title"] [class^="playkit-ap-scrollingTextContainer"] {
+  /* Unfortunately I need to use !important here to override inline styling on the element. */
+  height: 38px !important;
+}
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-description"] [class^="playkit-ap-scrollingTextContainer"]
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-medium"] [class^="playkit-ap-header"] [class^="playkit-ap-title"] [class^="playkit-ap-scrollingTextContainer"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-medium"] [class^="playkit-ap-header"] [class^="playkit-ap-description"] [class^="playkit-ap-scrollingTextContainer"] {
+  /* Unfortunately I need to use !important here to override inline styling on the element. */
+  height: 100% !important;
+}
+
+/* Ensures descriptive text remains visible.  */
+.playkit-player .playkit-player-gui {
+  font-size: 14px;
+}
+
+/* Hides file duration element and adds right padding to scrubber to create space for replacement file duration element. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-seekbar-wrapper"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-seekbar-wrapper"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-seekbar-wrapper"] {
+  padding-right: 33.74px;
+}
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-duration"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-medium"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-duration"],
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-duration"] {
+  display: none;
+}
+
+/* Halves the gap size for players with the small class. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-top-controls"] {
+  gap: 0.5rem;
+}
+
+/* Better adjusts width for long player titles. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-top-controls"] [class^="playkit-ap-right-controls"] {
+  width: calc(100% - 74px);
+  padding-right: 0.5rem;
+}
+
+/* Gives container for image left padding to match left padding of scrubber for players using the small class */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-left-controls"] {
+  padding-left: 0.5rem;
+}
+
+/* Adds bottom padding for players with the small class to the match the bottom padding of players with the medium and large class */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-playback-controls-wrapper"] {
+  padding-bottom: 0.5rem;
+}
+
+/* Keeps speed input inline with the other player controls. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-playback-controls-wrapper"] select.playkit-dropdown {
+  margin-bottom: 0;
+}
+
+/* Removes filter from player buttons so they display as the same colour as the rest of the elements in the player. */
+html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-small"] [class^="playkit-ap-bottom-controls"] [class^="playkit-ap-playback-controls-wrapper"] i.playkit-icon {
+  filter: none;
+}
+
+/* The below is styling for the replacement file duration element (a paragraph element that displays the duration of the audio file when showDuration is set to true in the player url). */
+
+/* Makes replacement element match the size and colour of the original file duration element. */
+html.audio body.player-v7 #mediaContainer .muted.small {
+  color: #fff;
+  font-size: 10px;
+  z-index: 1;
+  position: absolute;
+}
+
+/* Makes the replacement element display in the correct position for players with the large class. */
+html.audio body.player-v7 #mediaContainer:has(p.muted.small):has(div[class*="playkit-ap-large"]) .muted.small {
+  bottom: 45px;
+  right: 16px;
+}
+
+/* Makes the replacement element display in the correct position for players with the medium class. */
+html.audio body.player-v7 #mediaContainer:has(p.muted.small):has(div[class*="playkit-ap-medium"]) .muted.small {
+  bottom: 41px;
+  right: 16px;
+}
+
+/* Makes the replacement element display in the correct position for players with the small class. */
+html.audio body.player-v7 #mediaContainer:has(p.muted.small):has(div[class*="playkit-ap-small"]) .muted.small {
+  top: 74px;
+  right: 8px;
+}
