@@ -8,18 +8,6 @@
 /* 1. Video player
 ========================================================================== */
 
-/* Makes bottom bar visible on load instead of after selecting central play button.
-   This means students can see how long the video is before they begin playing it.
-   All controls become responsive including the preview pane when you drag the scrubber so you can start the video from any point you like as well. */
-.playkit-player.playkit-pre-playback .playkit-player-gui .playkit-gui-area .playkit-bottom-bar {
-  opacity: 1;
-  display: block;
-  visibility: visible;
-  max-height: 60px;
-  transition: 100ms max-height ease-in-out, 100ms visibility ease-in-out;
-  padding: 0 1rem 0.25rem;
-}
-
 /* Hides the central play button from the player when it loads.
    This means visual designers don't have to design thumbnails around the play button. */
 button.playkit-pre-playback-play-button {
@@ -32,28 +20,24 @@ button.playkit-pre-playback-play-button[aria-label="Start over"] {
   display: block;
 }
 
-/* The following code is to ensure the play/pause button doesn't get hidden when the small or extra small class are active.
-   This ensures that the play/pause button remains visible for mobile devices. */
-.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls ,
-.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls ,
-.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls {
-  display: inline;
+/* Makes bottom bar visible on load instead of after selecting central play button.
+   This means students can see how long the video is before they begin playing it.
+   All controls become responsive including the preview pane when you drag the scrubber so you can start the video from any point you like as well. */
+.playkit-player.playkit-pre-playback .playkit-player-gui .playkit-gui-area .playkit-bottom-bar {
+  opacity: 1;
+  display: block;
+  visibility: visible;
+  max-height: 60px;
+  transition: 100ms max-height ease-in-out, 100ms visibility ease-in-out;
+  padding: 0 1rem 0.25rem;
 }
-.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container,
-.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container,
-.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container {
-  display: inline;
-}
-.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip ,
-.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip ,
-.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls .playkit-control-button-container .playkit-tooltip {
-  width: auto;
-}
-.playkit-player.playkit-size-sm:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display,
-.playkit-player.playkit-size-xs:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display,
-.playkit-player.playkit-touch:not(.playkit-state-idle) .playkit-playback-controls+.playkit-time-display {
-  padding-left: 0;
-  padding-right: 0;
+
+/* The following code is to ensure that upon page load, the play/pause button in the bottom bar doesn't get hidden when the small or extra small class are active.
+   It is then hidden again following interaction to match the default player appearance. */
+.playkit-player.playkit-pre-playback.playkit-size-sm:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls,
+.playkit-player.playkit-pre-playback.playkit-size-xs:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls,
+.playkit-player.playkit-pre-playback.playkit-touch:not(.playkit-state-idle) .playkit-bottom-bar .playkit-playback-controls {
+  display: inline-flex;
 }
 
 /* Hides pop-up message on smaller device widths that prompts users to go to the Kaltura MediaSpace Go app. */
@@ -118,7 +102,7 @@ html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-min
 /* Creates enough space for the 'audio icons' to display in the 'audio-icon-container'.
    (The 'audio icons' are three dots that animate to vertical bars of varying height to similate the effect of audio playing.) */
 html.audio body.player-v7 #mediaContainer #wrapper.video [class^="playkit-ap-mini-audio-player-view"][class*="playkit-ap-large"] [class^="playkit-ap-right-controls"] [class^="playkit-ap-audio-player-details"][class*="playkit-ap-large"] [class^="playkit-ap-header"] [class^="playkit-ap-audio-icon-container"] {
-  margin: 1rem 1.5rem 0 0;
+  margin: 1rem 0 0;
 }
 
 /* Redistributes margin space to ensure space between audio title and audio description. */
